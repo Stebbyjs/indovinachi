@@ -1,0 +1,446 @@
+<html>
+
+<head>
+	<title> indovina chi </title>
+	<style>
+		#game_area {
+			display: grid;
+			grid-template-columns: repeat(8, minmax(100px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1200px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		@media screen and (max-width: 768px) {
+			#game_area {
+				grid-template-columns: repeat(6, minmax(100px, 1fr));
+			}
+
+		}
+
+		@media screen and (max-width: 480px) {
+			#game_area {
+				grid-template-columns: repeat(4, minmax(100px, 1fr));
+			}
+		}
+
+		.card {
+			background-color: #F1C82B;
+			padding: 20px;	
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 150px;
+		}
+
+		table, tr, td {
+			border: 1px;
+			border: solid;
+			border-color: #F1C82B;
+			border-collapse: collapse;
+		}
+
+		table {
+			width: 80%;
+		}
+
+		#make_question_textbox {
+			flex-basis: 70%;
+
+		}
+
+		#make_question_button {
+			text-align: right;
+		}
+
+		#make_question {
+			display: flex;
+			flex-wrap: wrap;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="game_area">
+
+	</div>
+
+	<div id="questions">
+
+		<h3> fai la tua domanda </h3>
+		<div id="make_question">
+			<div id="make_question_textbox">
+				<label for="txt_question">domanda:</label>
+				<input type="text" id="txt_question" name="txt_question" placeholder="scrivi qui la tua domanda"
+					style="width:85%">
+
+			</div>
+			<div id="make_question_button">
+				<button type="button" id="btn_send"> invia </button>
+			</div>
+
+		</div>
+
+
+
+	</div>
+    <br>
+	<table>
+		<thead>
+			<tr>
+				<td style="width: 70%;">
+					<p>questions</p>
+				</td>
+				<td style="width: 30%;">
+					<p>answers</p>
+				</td>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+
+
+	<script>
+		const tbody = document.querySelector("tbody");
+
+		let listCard = [];
+
+		let guessWho;
+
+		let keyWordList = ["hair", "haircolor", "beard", "glasses", "male", "female", "short hair", "long hair"];
+
+		function createGuessed() {
+
+			let list = []
+			const person = {};
+			//does he have black hair?
+			//does he have a beard?
+			//is he a male?
+			//does he wear glasses?
+			//does he have short hair?
+			person.name = "alfred";
+			person.haircolor = "orange";
+			person.hair = "long";
+			person.beard = true;
+			person.glasses = false;
+			person.sex = "male";
+			list.push(person)
+
+			const person2 = {};
+
+			person2.name = "alex";
+			person2.haircolor = "black";
+			person2.hair = "short";
+			person2.beard = true;
+			person2.glasses = false;
+			person2.sex = "male";
+			list.push(person2)
+
+
+			const person3 = {};
+
+			person3.name = "anita";
+			person3.haircolor = "blonde";
+			person3.hair = "long";
+			person3.beard = false;
+			person3.glasses = false;
+			person3.sex = "female";
+			list.push(person3)
+
+			const person4 = {};
+
+			person4.name = "anne";
+			person4.haircolor = "black";
+			person4.hair = "short";
+			person4.beard = false;
+			person4.glasses = false;
+			person4.sex = "female";
+			list.push(person4)
+
+			const person5 = {};
+
+			person5.name = "bernard";
+			person5.haircolor = "brown";
+			person5.hair = "hat";
+			person5.beard = true;
+			person5.glasses = false;
+			person5.sex = "male";
+			list.push(person5)
+
+			const person6 = {};
+
+			person6.name = "bill";
+			person6.haircolor = "red";
+			person6.hair = "lbald";
+			person6.beard = true;
+			person6.glasses = false;
+			person6.sex = "male";
+			list.push(person6)
+
+			const person7 = {};
+
+			person7.name = "charles";
+			person7.haircolor = "blonde";
+			person7.hair = "short";
+			person7.beard = true;
+			person7.glasses = false;
+			person7.sex = "male";
+			list.push(person7)
+
+			const person8 = {};
+
+			person8.name = "claire";
+			person8.haircolor = "red";
+			person8.hair = "hat";
+			person8.beard = false;
+			person8.glasses = true;
+			person8.sex = "female";
+			list.push(person8)
+
+			const person9 = {};
+
+			person9.name = "david";
+			person9.haircolor = "blonde";
+			person9.hair = "short";
+			person9.beard = true;
+			person9.glasses = false;
+			person9.sex = "male";
+			list.push(person9)
+
+			const person10 = {};
+
+			person10.name = "eric";
+			person10.haircolor = "blonde";
+			person10.hair = "hat";
+			person10.beard = false;
+			person10.glasses = false;
+			person10.sex = "male";
+			list.push(person10)
+
+			const person11 = {};
+
+			person11.name = "frans";
+			person11.haircolor = "red";
+			person11.hair = "short";
+			person11.beard = false;
+			person11.glasses = false;
+			person11.sex = "male";
+			list.push(person11)
+
+			const person12 = {};
+
+			person12.name = "george";
+			person12.haircolor = "white";
+			person12.hair = "hat";
+			person12.beard = false;
+			person12.glasses = false;
+			person12.sex = "male";
+			list.push(person12)
+
+			const person13 = {};
+
+			person13.name = "herman";
+			person13.haircolor = "red";
+			person13.hair = "bald";
+			person13.beard = false;
+			person13.glasses = false;
+			person13.sex = "male";
+			list.push(person13)
+
+			const person14 = {};
+
+			person14.name = "joe";
+			person14.haircolor = "blonde";
+			person14.hair = "short";
+			person14.beard = false;
+			person14.glasses = true;
+			person14.sex = "male";
+			list.push(person14)
+
+			const person15 = {};
+
+			person15.name = "maria";
+			person15.haircolor = "brown";
+			person15.hair = "hat";
+			person15.beard = false;
+			person15.glasses = false;
+			person15.sex = "female";
+			list.push(person15)
+
+			const person16 = {};
+
+			person16.name = "max";
+			person16.haircolor = "black";
+			person16.hair = "short";
+			person16.beard = true;
+			person16.glasses = false;
+			person16.sex = "male";
+			list.push(person16)
+
+			const person17 = {};
+
+			person17.name = "paul";
+			person17.haircolor = "white";
+			person17.hair = "short";
+			person17.beard = false;
+			person17.glasses = true;
+			person17.sex = "male";
+			list.push(person17)
+
+			const person18 = {};
+
+			person18.name = "peter";
+			person18.haircolor = "white";
+			person18.hair = "short";
+			person18.beard = false;
+			person18.glasses = false;
+			person18.sex = "male";
+			list.push(person18)
+
+			const person19 = {};
+
+			person19.name = "philip";
+			person19.haircolor = "black";
+			person19.hair = "short";
+			person19.beard = true;
+			person19.glasses = false;
+			person19.sex = "male";
+			list.push(person19)
+
+			const person20 = {};
+
+			person20.name = "richard";
+			person20.haircolor = "brown";
+			person20.hair = "bald";
+			person20.beard = true;
+			person20.glasses = false;
+			person20.sex = "male";
+			list.push(person20)
+
+			const person21 = {};
+
+			person21.name = "robert";
+			person21.haircolor = "brown";
+			person21.hair = "short";
+			person21.beard = false;
+			person21.glasses = false;
+			person21.sex = "male";
+			list.push(person21)
+
+			const person22 = {};
+
+			person22.name = "sam";
+			person22.haircolor = "white";
+			person22.hair = "bald";
+			person22.beard = false;
+			person22.glasses = true;
+			person22.sex = "male";
+			list.push(person22)
+
+			const person23 = {};
+
+			person23.name = "susan";
+			person23.haircolor = "white";
+			person23.hair = "long";
+			person23.beard = false;
+			person23.glasses = false;
+			person23.sex = "female";
+			list.push(person23)
+
+			const person24 = {};
+
+			person24.name = "tom";
+			person24.haircolor = "black";
+			person24.hair = "bald";
+			person24.beard = false;
+			person24.glasses = true;
+			person24.sex = "male";
+			list.push(person24)
+
+			return list
+		}
+
+		function loadCards() {
+			let people = createGuessed()
+			console.log(people);
+			for (let i = 0; i < people.length; i++) {
+				let item = people[i]
+				const card = document.createElement("div");
+				card.classList.add("card");
+
+				const cardimg = document.createElement("img");
+				cardimg.src = item.name + ".png";
+				cardimg.alt = item.name;
+				cardimg.addEventListener("click", transformToButton);
+
+				card.appendChild(cardimg);
+				document.getElementById("game_area").appendChild(card);
+			}
+			return people	
+		}
+
+		function transformToButton(event) {
+            const button = document.createElement("button");
+            
+            const image = event.target;
+			button.addEventListener("click", () => {
+                button.parentNode.removeChild(button);
+            });
+
+            image.parentNode.replaceChild(button, image);
+        }
+		
+		function questionSend() {
+			//does he have black hair?
+			//does he have a beard?
+			//is he a male?
+			//does he wear glasses?
+			//does he have short hair?			
+			let userQuestion = document.getElementById("txt_question").value;
+			let isQuestionUnderstood = false
+
+			for (let index = 0; index < keyWordList.length; index++) {
+				const keyword = keyWordList[index];
+				if (userQuestion.includes(keyword, 0)) {
+					isQuestionUnderstood = true
+				}
+
+			}
+			if (isQuestionUnderstood==false) {
+				alert("question not understood")
+			}
+		}
+		document.getElementById("btn_send").addEventListener("click", questionSend);
+
+		window.onload = function () {
+			listCard = loadCards();
+			let x = Math.floor((Math.random() * listCard.length));
+			guessWho = listCard[x]
+			console.log("hai scelto " + guessWho.name)
+		};
+
+		const button = document.querySelector("#btn_send")
+
+		button.addEventListener("click", (questionMemory) => {
+			questionMemory.preventDefault();
+			console.log("this works");
+			const txt_question = document.getElementById("txt_question").value;
+			console.log(txt_question)
+			tbody.innerHTML += `
+				<tr>
+    				<td>${txt_question}</td>
+    				<td>blabla</td>
+  				</tr>
+			`;
+			
+		})
+
+		
+	</script>
+</body>
+</html>

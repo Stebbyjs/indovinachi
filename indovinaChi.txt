@@ -1,0 +1,5 @@
+impostare la pagina
+lista di n persone + caratteristiche e foto
+box domanda
+output risposta
+gestione eliminato
