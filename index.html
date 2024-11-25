@@ -372,27 +372,45 @@
 				let item = people[i]
 				const card = document.createElement("div");
 				card.classList.add("card");
-
+				card.id = item.name 
+				
 				const cardimg = document.createElement("img");
 				cardimg.src = item.name + ".png";
 				cardimg.alt = item.name;
-				cardimg.addEventListener("click", transformToButton);
-
+				cardimg.id = "img_" + item.name
+				
+				card.addEventListener("click", deleteImageFromCard)
 				card.appendChild(cardimg);
 				document.getElementById("game_area").appendChild(card);
 			}
 			return people	
 		}
 
-		function transformToButton(event) {
-            const button = document.createElement("button");
+		function deleteImageFromCard(event) {
             
-            const image = event.target;
-			button.addEventListener("click", () => {
-                button.parentNode.removeChild(button);
-            });
+			let id=event.target.id
+			
+			let element=document.getElementById(id)
 
-            image.parentNode.replaceChild(button, image);
+			if(id.includes('img_')==false){
+
+				element=element.firstChild;
+			}
+
+			
+
+			if(element.style.display=='none'){
+				element.style.diplay='block'
+			}
+			else {
+				element.style.display='none'
+			}
+			
+
+			//todo 
+			//capire se elemento è card o img, se card nascondere l'elemento figlio se ig nascondere
+			//per nascondere display: none
+			
         }
 		
 		function questionSend() {
