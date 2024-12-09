@@ -378,7 +378,6 @@
 				cardimg.src = item.name + ".png";
 				cardimg.alt = item.name;
 				cardimg.id = "img_" + item.name
-				
 				card.addEventListener("click", deleteImageFromCard)
 				card.appendChild(cardimg);
 				document.getElementById("game_area").appendChild(card);
@@ -387,7 +386,7 @@
 		}
 
 		function deleteImageFromCard(event) {
-            
+             
 			let id=event.target.id
 			
 			let element=document.getElementById(id)
@@ -398,19 +397,14 @@
 			}
 
 			
-
-			if(element.style.display=='none'){
-				element.style.diplay='block'
+			
+			if(element.style.visibility==='hidden'){
+				element.style.visibility='visible'
 			}
 			else {
-				element.style.display='none'
+				element.style.visibility='hidden'
 			}
-			
-
-			//todo 
-			//capire se elemento è card o img, se card nascondere l'elemento figlio se ig nascondere
-			//per nascondere display: none
-			
+			 
         }
 		
 		function questionSend() {
